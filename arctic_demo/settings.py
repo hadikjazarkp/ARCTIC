@@ -95,7 +95,7 @@ AWS_DEFAULT_ACL = None
 
 STATIC_S3_PATH = "static"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATIC_ROOT = f"/{STATIC_S3_PATH}/"
+# STATIC_ROOT = f"/{STATIC_S3_PATH}/"
 STATICFILES_STORAGE = "s3_folder_storage.s3.StaticStorage"
 STATIC_URL = f"http://{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com/static/"
 ADMIN_MEDIA_PREFIX = STATIC_URL + "admin/"
