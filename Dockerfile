@@ -23,6 +23,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Expose ports
 EXPOSE 80 8000
 
-# Command to run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "arctic_demo.wsgi:application"]
+# Command to start both Gunicorn and Nginx
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:8000 arctic_demo.wsgi:application & nginx -g 'daemon off;'"]
 
