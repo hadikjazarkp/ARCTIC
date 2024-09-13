@@ -1,0 +1,199 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ARCTIC{% endblock %}</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block extra_head %}{% endblock %}
+    <style>
+        /* Icon Container Style */
+        .icon-container {
+            position: fixed;
+            right: 20px; /* Distance from the right edge */
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Center vertically */
+            z-index: 1000; /* Ensure it's on top */
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between icons */
+        }
+
+        .icon-container a {
+            display: inline-block;
+            background-color: #25D366; /* Default background color */
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            font-size: 24px;
+            transition: background-color 0.3s;
+        }
+
+        .icon-container .whatsapp a {
+            background-color: #25D366; /* WhatsApp green color */
+        }
+
+        .icon-container .instagram a {
+            background-color: #E4405F; /* Instagram pink color */
+        }
+
+        .icon-container a:hover {
+            opacity: 0.8; /* Slightly reduce opacity on hover */
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #282d31; /* Footer background color */
+            color: #e8f1fa;
+            padding: 2rem 1rem;
+        }
+        
+        footer .section__container {
+            display: grid;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        
+        footer h4 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .social__icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social__icons i {
+            padding: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        footer p {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="{% url 'home' %}?ref=logo_click" class="w3-bar-item w3-button">
+                    {% with site_logo=site_logo.first %}
+                        {% if site_logo %}
+                            <img class="w3-image" src="{{ site_logo.image.url }}" alt="Site Logo" style="width:100px">
+                        {% else %}
+                            <img class="w3-image" src="{% static 'images/default_logo.png' %}" alt="Default Logo" style="width:100px">
+                        {% endif %}
+                    {% endwith %}
+                </a>
+                
+                <!-- Float links to the right. Hide them on small screens -->
+                <div class="w3-right w3-hide-small">
+                    <a href="#home" class="w3-bar-item w3-button">Home</a>
+                    <a href="#projects" class="w3-bar-item w3-button">Projects</a>
+                    <a href="#about" class="w3-bar-item w3-button">About</a>
+                    <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        {% block content %}
+        <!-- Default content if not overridden -->
+        {% endblock %}
+    </main>
+    
+<!-- Third Grid: Swing By & Contact -->
+<div class="w3-row" id="contact" style="margin-top: 100px;">
+  <div class="w3-half w3-dark-grey w3-container w3-center" style="height:700px">
+    <div class="w3-padding-64">
+      <h1>Swing By</h1>
+    </div>
+    <div class="w3-padding-64">
+      <p>..for a cup of coffee, or whatever.</p>
+      <p>Chicago, US</p>
+      <p>+00 1515151515</p>
+      <p>test@test.com</p>
+    </div>
+  </div>
+  <div class="w3-half w3-teal w3-container" style="height:700px">
+    <div class="w3-padding-64 w3-padding-large">
+      <h1>Contact</h1>
+      <p class="w3-opacity">GET IN TOUCH</p>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="w3-section">
+          <label for="name">Name</label>
+          <input class="w3-input" style="width:100%;" type="text" name="name" required>
+        </div>
+        <div class="w3-section">
+          <label for="email">Email</label>
+          <input class="w3-input" style="width:100%;" type="email" name="email" required>
+        </div>
+        <div class="w3-section">
+          <label for="message">Message</label>
+          <textarea class="w3-input" style="width:100%;" name="message" required></textarea>
+        </div>
+        <button type="submit" class="w3-button w3-teal w3-right">Send</button>
+      </form>
+      
+    </div>
+  </div>
+</div>
+<!-- Image of location/map -->
+<div class="w3-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.6506967844366!2d76.44001302087814!3d10.98971635068731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba7d5ec1038c6f9%3A0x9a986253aedc0752!2sGingi%20Sweets%20%26%20Nuts!5e0!3m2!1sen!2sin!4v1723808430334!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+  
+  <!-- End page content -->
+  </div>
+    <footer>
+        <div class="section__container">
+            <h4>ARCTIC</h4>
+            <p>THE ONE STOP SOLUTION</p>
+            <div class="social__icons">
+                <span><i class="ri-facebook-fill"></i></span>
+                <span><i class="ri-twitter-fill"></i></span>
+                <a href="https://www.instagram.com/arctic.consultancy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                    <span><i class="ri-instagram-line"></i></span>
+                </a>                
+                <span><i class="ri-linkedin-fill"></i></span>
+            </div>
+        </div>
+    </footer>
+<style>
+    a span i {
+        text-decoration: none;
+    }    
+</style>
+    <!-- Icon Container -->
+    <div class="icon-container">
+        <!-- WhatsApp Icon -->
+        <div class="whatsapp">
+            <a href="https://wa.me/917025646518" target="_blank" title="Chat with us on WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        <!-- Instagram Icon -->
+        <div class="instagram">
+            <a href="https://www.instagram.com/arctic.consultancy/" target="_blank" title="Follow us on Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </div>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

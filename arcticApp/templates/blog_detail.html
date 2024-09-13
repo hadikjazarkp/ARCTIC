@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>{{ blog.title }}</h1>
+<h2 style="text-align: center; margin-bottom: 40px;">Media Content</h2>
+
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:50px">
+    <!-- Media Grid -->
+    <div class="w3-row-padding w3-padding-16 w3-center" id="media">
+        {% for media in media_contents %}
+        <div class="w3-quarter">
+            <div class="media-card" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px; margin-bottom: 30px; background-color: #fff; border-radius: 10px;">
+                {% if media.media_type == 'image' %}
+                    <img src="{{ media.media_file.url }}" alt="{{ media.name }}" class="media-item" style="width:100%; border-radius: 10px; transition: transform 0.3s ease;">
+                {% elif media.media_type == 'video' %}
+                    <video controls class="media-item" style="width:100%; border-radius: 10px;">
+                        <source src="{{ media.media_file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% endif %}
+                <h3 style="margin-top: 15px; font-size: 1.25em; font-weight: 600;">{{ media.name }}</h3>
+                <p style="font-size: 1em; color: #666;">{{ media.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Adding hover effect for images and videos -->
+<style>
+    .media-item:hover {
+        transform: scale(1.05);
+    }
+
+    /* Responsive grid for smaller screens */
+    @media (max-width: 768px) {
+        .w3-quarter {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .w3-quarter {
+            width: 48%;
+            margin-bottom: 20px;
+        }
+    }
+</style>
+
+{% endblock %}

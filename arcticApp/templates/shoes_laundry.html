@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<style>
+    .section__container {
+      padding: 5rem 1rem;
+      max-width: var(--max-width);
+      margin: auto;
+    }
+    
+    .section__title {
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .section__subtitle {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--primary-color);
+      margin-bottom: 5rem;
+      text-align: center;
+    }
+    
+    header {
+      height: 50vh;
+      background-image: linear-gradient(
+          rgba(45, 92, 132, 0.5),
+          rgba(45, 92, 132, 0.5)
+        ),
+        url("assets/bg-1.jpg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    header .section__container {
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    
+    .header__content {
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+      color: white; /* Text color set to white */
+    }
+    
+    .header__content h1 {
+      font-size: 5rem;
+      font-weight: 400;
+      line-height: 5rem;
+      color: white; /* Heading color set to white */
+    }
+    
+    .header__content p {
+      text-align: left;
+      color: white; /* Paragraph text color set to white */
+    }
+    
+    .header__content button {
+      padding: 1rem 2rem;
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--primary-color);
+      color: var(--extra-light);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .header__content button:hover {
+      background-color: var(--primary-color-dark);
+    }
+    </style>
+    
+    <header>
+      <div class="section__container" id="home">
+        <div class="header__content">
+          <h1>
+            Shoelaundry</h1>
+          <p>
+            Keep your footwear looking their best with our Shoelaundry 
+            service. We offer a range of packages to meet your needs, 
+            ensuring your shoes are cleaned, refreshed, and ready for any occasion.
+
+          </p>
+          <button></button>
+        </div>
+      </div>
+    </header>
+    
+  
+
+<style>
+  .custom-image-height {
+      height: 620px; /* Adjust as needed */
+      object-fit: cover; /* Ensures the image covers the specified height */
+      width: 100%; /* Ensures the image takes full width of the container */
+  }
+
+  .w3-display-container {
+      position: relative;
+      overflow: hidden; /* Ensures the overlay stays within the container */
+  }
+
+  .w3-display-container img {
+      width: 100%;
+      display: block; /* Remove any default spacing around the image */
+  }
+
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Dark shade with 50% opacity */
+      pointer-events: none; /* Allows clicks to pass through the overlay */
+  }
+
+  /* Ensure text color is white */
+  .w3-display-bottomleft h2 {
+      color: white !important; /* Ensure the heading text is also white */
+  }
+</style>
+
+
+
+{% comment %} <div class="w3-row w3-container" style="margin:50px 0">
+  <div class="w3-half w3-container">
+    <div class="w3-topbar w3-border-amber">
+      <img src="{% static 'images/shoes17.jpeg' %}" style="width:100%">
+      <h2>Deep Cleaning</h2>
+      <p>Removes dirt and stains thoroughly.</p>
+    </div>
+  </div>
+  
+  <div class="w3-half w3-container">
+    <div class="w3-topbar w3-border-amber">
+      <img src="{% static 'images/shoes12.jpg' %}" style="width:100%">
+      <h2>Shoe Polishing</h2>
+      <p> Provides a polished and shiny finish.</p>
+    </div>
+  </div>
+</div>
+
+<div class="w3-row w3-container" style="margin:50px 0">
+  <div class="w3-half w3-container">
+    <div class="w3-topbar w3-border-orange">
+      <img src="{% static 'images/shoes22.jpeg' %}" style="width:100%">
+      <h2>Odor Removal</h2>
+      <p> Eliminates bad smells from shoes.</p>
+    </div>
+  </div>
+  
+  <div class="w3-half w3-container">
+    <div class="w3-topbar w3-border-orange">
+      <img src="{% static 'images/shoes18.jpeg' %}" style="width:100%">
+      <h2>Waterproofing</h2>
+      <p>Protects shoes from water damage.</p>
+      </div>
+  </div>
+</div> {% endcomment %}
+<div class="w3-row w3-container" style="margin:50px 0">
+  {% for service in servicesimg %}
+    <div class="w3-half w3-container" style="padding: 20px;">
+      <div class="w3-topbar {% if forloop.counter0|divisibleby:2 %}w3-border-amber{% else %}w3-border-orange{% endif %}" 
+           style="padding: 20px; border-width: 5px;">
+        <img src="{{ service.image.url }}" style="width:100%; border-radius: 10px;">
+        <h2 style="margin-top: 20px;">{{ service.get_service_type_display }}</h2>
+        <p>{{ service.description }}</p>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+     
+      
+<!-- Pricing Row -->
+<div class="w3-row-padding w3-center w3-padding-64" id="pricing">
+  <h2>PRICING</h2>
+  <p>Choose a pricing plan that fits your needs.</p><br>
+  
+  <div class="w3-row-padding">
+    {% for service in services %}
+    <div class="w3-third w3-margin-bottom">
+        <ul class="w3-ul w3-border w3-hover-shadow">
+            <li class="{% if service.service_type == 'polishing' %}w3-dark-gray{% elif service.service_type == 'deep_cleaning' %}w3-gray{% else %}w3-dark-gray{% endif %}">
+                <p class="w3-xlarge">{{ service.get_service_type_display }}</p>
+            </li>
+            <li class="w3-padding-16">{{ service.description1 }}</li>
+            {% if service.description2 %}
+            <li class="w3-padding-16">{{ service.description2 }}</li>
+            {% endif %}
+            {% if service.description3 %}
+            <li class="w3-padding-16">{{ service.description3 }}</li>
+            {% endif %}
+            <li class="w3-padding-16">
+                <h2 class="w3-wide"><i class="fa fa-usd"></i> {{ service.price }}</h2>
+            </li>
+            <li class="w3-theme-l5 w3-padding-24">
+              <a href="https://wa.me/919947113866" target="_blank">
+                  <button class="w3-button w3-teal w3-padding-large">
+                      <i class="fa fa-check"></i> Contact
+                  </button>
+              </a>
+          </li>
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+  /* Container styling */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Responsive service boxes */
+.responsive-service {
+  width: 100%; /* Default to full width */
+}
+
+/* Media queries for responsive design */
+@media (min-width: 768px) {
+  .responsive-service {
+      width: 48%; /* Two items per row on medium screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-service {
+      width: 31%; /* Three items per row on large screens */
+  }
+}
+</style>
+
+
+<div class="review_container">
+  <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
+      <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
+  </div>
+  <ul class="hash-list cols-3 cols-1-xs pad-30-all align-center text-sm">
+      {% for review in reviews %}
+          <li>
+              <img src="{{ review.image.url }}" class="wpx-100 img-round mgb-20" title="{{ review.name }}" alt="{{ review.name }}">
+              <p class="fs-110 font-cond-l">"{{ review.description }}"</p>
+              <h5 class="font-cond mgb-5 fg-text-d fs-130">{{ review.name }}</h5>
+              <small class="font-cond case-u lts-sm fs-80 fg-text-l">{{ review.job_title }} - {{ review.location }}</small>
+          </li>
+      {% endfor %}
+  </ul>
+</div>
+
+
+<style>
+  .w3-half.w3-container {
+    padding: 20px;
+}
+
+.w3-topbar {
+    padding: 20px;
+    border-width: 5px;
+}
+
+.w3-topbar img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.w3-topbar h2 {
+    margin-top: 20px;
+}
+
+.align-center {
+    text-align: center;
+}
+.hash-list {
+    display: block;
+    padding: 0;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px){
+    .hash-list.cols-3 > li:nth-last-child(-n+3) {
+        border-bottom: none;
+    }
+}
+@media (min-width: 768px){
+    .hash-list.cols-3 > li {
+        width: 33.3333%;
+    }
+}
+.hash-list > li {
+    display: block;
+    float: left;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.pad-30, .pad-30-all > * {
+    padding: 30px;
+}
+img {
+    border: 0;
+}
+.mgb-20, .mgb-20-all > * {
+    margin-bottom: 20px;
+}
+.wpx-100, .wpx-100-after:after {
+    width: 100px;
+}
+.img-round, .img-rel-round {
+    border-radius: 50%;
+}
+.padb-30, .padb-30-all > * {
+    padding-bottom: 30px;
+}
+
+.mgb-40, .mgb-40-all > * {
+    margin-bottom: 40px;
+}
+.align-center {
+    text-align: center;
+}
+[class*="line-b"] {
+    position: relative;
+    padding-bottom: 20px;
+    border-color: #E6AF2A;
+}
+.fg-text-d, .fg-hov-text-d:hover, .fg-active-text-d.active {
+    color: #222;
+}
+.font-cond-b {
+    font-weight: 700 !important;
+}
+</style>
+{% endblock %}

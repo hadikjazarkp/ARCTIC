@@ -1,0 +1,698 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .custom-image-height {
+      height: 620px; /* Adjust as needed */
+      object-fit: cover; /* Ensures the image covers the specified height */
+      width: 100%; /* Ensures the image takes full width of the container */
+  }
+
+  .w3-display-container {
+      position: relative;
+      overflow: hidden; /* Ensures the overlay stays within the container */
+  }
+
+  .w3-display-container img {
+      width: 100%;
+      display: block; /* Remove any default spacing around the image */
+  }
+
+  .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Dark shade with 50% opacity */
+      pointer-events: none; /* Allows clicks to pass through the overlay */
+  }
+
+  /* Ensure text color is white */
+ 
+  .w3-display-bottomleft h2 {
+      color: white !important; /* Ensure the heading text is also white */
+  }
+  
+  
+</style>
+
+<style>
+  .section__container {
+    padding: 5rem 1rem;
+    max-width: var(--max-width);
+    margin: auto;
+  }
+  
+  .section__title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .section__subtitle {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--primary-color);
+    margin-bottom: 5rem;
+    text-align: center;
+  }
+  
+  header {
+    height: 50vh;
+    background-image: linear-gradient(
+        rgba(45, 92, 132, 0.5),
+        rgba(45, 92, 132, 0.5)
+      ),
+      url("assets/bg-1.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  header .section__container {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .header__content {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    color: white; /* Text color set to white */
+  }
+  
+  .header__content h1 {
+    font-size: 5rem;
+    font-weight: 400;
+    line-height: 5rem;
+    color: white; /* Heading color set to white */
+  }
+  
+  .header__content p {
+    text-align: left;
+    color: white; /* Paragraph text color set to white */
+  }
+  
+  .header__content button {
+    padding: 1rem 2rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: var(--extra-light);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .header__content button:hover {
+    background-color: var(--primary-color-dark);
+  }
+  </style>
+  
+  <header>
+    <div class="section__container" id="home">
+      <div class="header__content">
+        <h1>Education</h1>
+        <p>
+          Whether you're pursuing international or domestic education,
+           Arctic is here to guide you. We offer expert guidance
+            for both international and domestic students, from visa
+             assistance to admissions support. Our services help you
+             achieve your academic goals and make informed decisions
+              about your educational journey.
+        </p>
+        <button></button>
+      </div>
+    </div>
+  </header>
+  <style>
+    h2, h3 {
+        text-align: center;
+        color: #007bff;
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    .education-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .education-box {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        width: 250px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .education-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .education-box img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .education-box .education-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .education-box .education-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .education-box .education-link:hover {
+        background-color: #0056b3;
+    }
+
+    .distance-education-info {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+    .distance-education-info h3 {
+        color: #007bff;
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .distance-education-info p {
+        font-size: 16px;
+        color: #333;
+        text-align: center;
+    }
+
+    .swipe-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        margin: 20px 0;
+    }
+
+    .swipe-wrapper {
+        display: flex;
+        transition: transform 0.3s ease;
+    }
+
+    .swipe-item {
+        min-width: 250px;
+        margin: 0 10px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow on all sides */
+        text-align: center;
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .swipe-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+    }
+
+    .swipe-item img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .swipe-item .swipe-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .swipe-item .education-link:hover {
+        background-color: #0056b3;
+    } 
+    .swipe-item .education-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 30px;
+        color: #007bff;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .arrow.left {
+        left: 10px;
+    }
+
+    .arrow.right {
+        right: 10px;
+    }
+
+    .domestic-education {
+        background-color: #f5f5f5;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+    }
+
+    .domestic-education h3 {
+        text-align: center;
+        color: #007bff;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .domestic-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .domestic-box {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        width: 250px;
+        padding: 20px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .domestic-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    .domestic-box .education-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .domestic-box .education-link:hover {
+        background-color: #0056b3;
+    }
+    .domestic-box img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .domestic-box .education-name {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .domestic-box .education-description {
+        font-size: 14px;
+        color: #555;
+    }
+</style>
+
+<h2>Abroad Education</h2>
+<div class="education-grid">
+    {% for item in abroad_educations %}
+        <div class="education-box">
+            <img src="{{ item.image.url }}" alt="{{ item.education_name }}">
+            <div class="education-name">{{ item.education_name }}</div>
+            <a href="{% url 'registration' %}" class="education-link">Learn More</a>
+        </div>
+    {% empty %}
+        <p>No abroad education data available.</p>
+    {% endfor %}
+</div>
+
+<!-- Distance Education Information -->
+<div class="distance-education-info">
+    <h3>Distance Education</h3>
+    <p>Your education is one click away! Enhance your knowledge with our distance education services from anywhere now. We connect you with top-notch programs and resources to support your learning from the comfort of your home.</p>
+</div>
+
+<!-- Swiping Image and Name List -->
+<div class="swipe-container">
+    <div class="arrow left" onclick="swipeLeft()">&#10094;</div>
+    <div class="swipe-wrapper" id="swipeWrapper">
+        {% for item in distance_educations %}
+            <div class="swipe-item">
+                <img src="{{ item.image.url }}" alt="{{ item.education_name }}">
+                <div class="swipe-name">{{ item.education_name }}</div>
+                <a href="{% url 'registration' %}" class="education-link">Learn More</a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="arrow right" onclick="swipeRight()">&#10095;</div>
+</div>
+
+<!-- Domestic Education Section -->
+<div class="domestic-education">
+    <h3>Domestic Education</h3>
+    <div class="domestic-grid">
+        {% for item in domestic_educations %}
+            <div class="domestic-box">
+                <img src="{{ item.image.url }}" alt="{{ item.education_name }}">
+                <div class="education-name">{{ item.education_name }}</div>
+                <div class="education-description">{{ item.description }}</div>
+                <a href="{% url 'registration' %}" class="education-link">Learn More</a>
+            </div>
+        {% empty %}
+            <p>No domestic education data available.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const swipeWrapper = document.getElementById('swipeWrapper');
+    let scrollPosition = 0;
+
+    function swipeLeft() {
+        scrollPosition -= 260;
+        if (scrollPosition < 0) {
+            scrollPosition = 0;
+        }
+        swipeWrapper.style.transform = `translateX(-${scrollPosition}px)`;
+    }
+
+    function swipeRight() {
+        const maxScroll = swipeWrapper.scrollWidth - swipeWrapper.clientWidth;
+        scrollPosition += 260;
+        if (scrollPosition > maxScroll) {
+            scrollPosition = maxScroll;
+        }
+        swipeWrapper.style.transform = `translateX(-${scrollPosition}px)`;
+    }
+</script>
+
+
+<style>
+  .w3-theme-dark {
+      background-color: #333; /* Dark background color */
+      color: white; /* White text color */
+  }
+
+  .w3-card {
+      background-color: #444; /* Darker card background for contrast */
+      color: white; /* White text color */
+  }
+
+  .w3-card img {
+      width: 100%;
+      height: auto; /* Ensures image scales properly */
+  }
+
+  .w3-container h3, .w3-container h4, .w3-container p {
+      color: white; /* White text color for headings and paragraphs */
+  }
+
+  .w3-row-padding {
+      padding: 64px; /* Adjust padding if needed */
+  }
+</style>
+
+<style>
+    .mainDiv {
+        margin: auto;
+        width: 100%;
+        max-width: 800px; /* Ensures responsiveness */
+        padding: 20px;
+    }
+
+    .online-container {
+        cursor: pointer;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: blue;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 8px;
+        transition: background-color 0.3s;
+    }
+
+    .online-container:hover {
+        background-color: #e0e0e0;
+    }
+
+    .bullet {
+        font-size: 18px;
+        color: blue;
+    }
+
+    .arrow {
+        font-size: 18px;
+        transition: transform 0.3s;
+        color: blue;
+    }
+
+    .arrow.down {
+        transform: rotate(180deg);
+    }
+
+    .toggleDiv {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        font-size: 16px;
+        width: 100%;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .content-box {
+        padding: 15px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon {
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #555;
+    }
+
+    .heading {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #333;
+    }
+
+    .paragraph-box {
+        background-color: #f7f7f7;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .paragraph-box p {
+        margin: 0 0 10px;
+        color: #666;
+    }
+
+    /* Responsive Styling */
+    @media (max-width: 768px) {
+        .mainDiv {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .online-container {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .icon, .heading {
+            font-size: 18px;
+        }
+
+        .paragraph-box {
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="mainDiv">
+    {% for box in content_boxes %}
+    <div class="online-container" onclick="toggleDiv('{{ forloop.counter }}')">
+        <span class="bullet">•</span>
+        <span>{{ box.online_text }}</span>
+        <span class="arrow"></span>
+    </div>
+
+    <div id="toggleDiv{{ forloop.counter }}" class="toggleDiv">
+        <div class="content-box">
+            <div class="icon">{{ box.icon }}</div>
+            <div class="heading">{{ box.heading }}</div>
+            <div class="paragraph-box">
+                <p>{{ box.paragraph }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+<script>
+function toggleDiv(id) {
+    const toggleDiv = document.getElementById('toggleDiv' + id);
+    const arrow = document.querySelector(`.online-container:nth-of-type(${id}) .arrow`);
+    if (toggleDiv.style.display === 'none' || toggleDiv.style.display === '') {
+        toggleDiv.style.display = 'block';
+        arrow.classList.add('down');
+    } else {
+        toggleDiv.style.display = 'none';
+        arrow.classList.remove('down');
+    }
+}
+</script>
+
+
+
+<style>
+  .custom-pro-color {
+      background-color: #A9A9A9; /* Normal gray color */
+      color: white; /* Ensure the text is white for contrast */
+  }
+</style>
+
+
+<div class="review_container">
+  <div class="mgb-40 padb-30 auto-invert line-b-4 align-center">
+      <h1 class="font-cond-b fg-text-d lts-md fs-300 fs-300-xs no-mg" contenteditable="false">Read Customer Reviews</h1>
+  </div>
+  <ul class="hash-list cols-3 cols-1-xs pad-30-all align-center text-sm">
+      {% for review in reviews %}
+          <li>
+              <img src="{{ review.image.url }}" class="wpx-100 img-round mgb-20" title="{{ review.name }}" alt="{{ review.name }}">
+              <p class="fs-110 font-cond-l">"{{ review.description }}"</p>
+              <h5 class="font-cond mgb-5 fg-text-d fs-130">{{ review.name }}</h5>
+              <small class="font-cond case-u lts-sm fs-80 fg-text-l">{{ review.job_title }} - {{ review.location }}</small>
+          </li>
+      {% endfor %}
+  </ul>
+</div>
+<style>
+  .align-center {
+      text-align: center;
+  }
+  .hash-list {
+      display: block;
+      padding: 0;
+      margin: 0 auto;
+  }
+  
+  @media (min-width: 768px){
+      .hash-list.cols-3 > li:nth-last-child(-n+3) {
+          border-bottom: none;
+      }
+  }
+  @media (min-width: 768px){
+      .hash-list.cols-3 > li {
+          width: 33.3333%;
+      }
+  }
+  .hash-list > li {
+      display: block;
+      float: left;
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .pad-30, .pad-30-all > * {
+      padding: 30px;
+  }
+  img {
+      border: 0;
+  }
+  .mgb-20, .mgb-20-all > * {
+      margin-bottom: 20px;
+  }
+  .wpx-100, .wpx-100-after:after {
+      width: 100px;
+  }
+  .img-round, .img-rel-round {
+      border-radius: 50%;
+  }
+  .padb-30, .padb-30-all > * {
+      padding-bottom: 30px;
+  }
+  
+  .mgb-40, .mgb-40-all > * {
+      margin-bottom: 40px;
+  }
+  .align-center {
+      text-align: center;
+  }
+  [class*="line-b"] {
+      position: relative;
+      padding-bottom: 20px;
+      border-color: #E6AF2A;
+  }
+  .fg-text-d, .fg-hov-text-d:hover, .fg-active-text-d.active {
+      color: #222;
+  }
+  .font-cond-b {
+      font-weight: 700 !important;
+  }
+  </style>
+
+  
+
+{% endblock %}
