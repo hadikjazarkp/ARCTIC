@@ -11,11 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY =os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['3.92.20.58', '13.126.11.82', 'localhost', '127.0.0.1', '0.0.0.0']
-CSRF_TRUSTED_ORIGINS = ['https://arctic-consultancy.com']
+CSRF_TRUSTED_ORIGINS = ['https://www.arctic-consultancy.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,11 +26,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'arcticApp',
-    # 'storages',  # Make sure storages is listed here
     's3_folder_storage',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
